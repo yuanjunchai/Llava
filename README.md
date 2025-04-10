@@ -15,7 +15,9 @@ Here are intro about these models:
   - About base model, we choose [vicuna-13b-v1.5](https://huggingface.co/lmsys/vicuna-13b-v1.5) as LLM. As for vision encoder, we try CoCa and clip model from open_clip.
   - Our stage 1 models (MLP) are trained via ``` bash scripts\train\pretrain_clip.sh```
   - Our stage 2 LoRA fine-tuned models are trained via ``` bash scripts\train\finetune_clip.sh``` and ``` bash scripts\train\finetune_coca.sh```. As using hyak slurm, we prefer to use ```sbatch lora_clip.slurm``` and ```sbatch lora_coca.slurm```.
-  - For inference, use ```CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash scripts/eval/vqav2.sh```. Now we are temporarily stuck at the model inference stage, since not so sure about model-path and model-base when evaluating.
+  - For inference, use ```CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash scripts/eval/vqav2.sh```. 
+  
+  Now we are temporarily stuck at the model inference stage, since not so sure about model-path and model-base when evaluating.
 
 # Original Info
 [![Static Badge](https://img.shields.io/badge/llava_video-paper-green)](http://arxiv.org/abs/2410.02713)

@@ -2,7 +2,22 @@
 <img src="https://i.postimg.cc/pL17YtG4/WX20240508-220230-2x.png"  width="80%" height="80%">
 </p>
 
-# LLaVA-NeXT: Open Large Multimodal Models
+
+# LLaVA
+- **[Background] We** try to utilize CoCa and Clip ViT under the same dataset settings, to figure out their difference.
+  - The model training stage contains two steps: 1. Pretrain for training MLP 2. Visual Instruction Tuning for traing both MLP and LLM.
+  - Since the communication mode cannot be switched from PCIe to NVlink when using multiple cards for training on the server, we choose **LoRA fine-tuning** in the second stage.
+
+- **[Environment] We** could utilize ```pip install -r requirements.txt``` or conda env: ```conda create -f env.yaml```
+
+- **[Checkpoints] Our model** checkpoints are here [huggingface_ckpts](https://huggingface.co/AllenChai/llava-coca/), which contains base_model from open_clip, stage1 models, and stage2 models.
+Here are intro about these models:
+  - About base model, we choose [vicuna-13b-v1.5](https://huggingface.co/lmsys/vicuna-13b-v1.5) as LLM. As for vision encoder, we try CoCa and clip model from open_clip.
+  - Our stage 1 models (MLP) are trained via ``` bash scripts\train\pretrain_clip.sh```
+  - Our stage 2 LoRA fine-tuned models are trained via ``` bash scripts\train\finetune_clip.sh``` and ``` bash scripts\train\finetune_coca.sh```. As using hyak slurm, we prefer to use ```sbatch lora_clip.slurm``` and ```sbatch lora_coca.slurm```.
+  - For inference, use ```CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash scripts/eval/vqav2.sh```. Now we are temporarily stuck at the model inference stage, since not so sure about model-path and model-base when evaluating.
+
+# Original Info
 [![Static Badge](https://img.shields.io/badge/llava_video-paper-green)](http://arxiv.org/abs/2410.02713)
 [![Static Badge](https://img.shields.io/badge/llava_onevision-paper-green)](https://arxiv.org/abs/2408.03326)
 [![llava_next-blog](https://img.shields.io/badge/llava_next-blog-green)](https://llava-vl.github.io/blog/)
